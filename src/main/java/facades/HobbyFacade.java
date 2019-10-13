@@ -1,28 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facades;
 
+import dto.HobbyDTO;
 import entities.Hobby;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import utils.EMF_Creator;
 
-/**
- *
- * @author Annika
- */
 public class HobbyFacade {
+
     private static HobbyFacade instance;
     private static EntityManagerFactory emf;
-    
-    private HobbyFacade(){}
-    
+
+    //Private Constructor to ensure Singleton
+    private HobbyFacade() {
+    }
+
     /**
      *
      * @param _emf
@@ -39,7 +34,7 @@ public class HobbyFacade {
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
+
     public Hobby getHobby(String hobbyname) throws NoResultException {
         EntityManager em = getEntityManager();
         try {
@@ -49,9 +44,26 @@ public class HobbyFacade {
             em.close();
         }
     }
+
     
-    public static void main(String[] args) {
-        EntityManagerFactory emf2 = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
-        //getHobbyFacade(emf2).test();
+
+        
+
+    public List<HobbyDTO> getAllHobbies() {
+        EntityManager em = getEntityManager();
+        try {
+            List<HobbyDTO> dto = new ArrayList<>();
+            List<Hobby> hobbies = em.createQuery("SELECT h FROM Hobby h", Hobby.class).getResultList();
+            for (Hobby h : hobbies) {
+                dto.add(new HobbyDTO(h));
+            }
+
+            return dto;
+
+        } finally {
+            em.close();
+        }
     }
+
 }
+
