@@ -1,23 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package cors;
+package rest;
+
 
 import java.io.IOException;
 import java.util.logging.Logger;
+
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.container.PreMatching;
+
 import javax.ws.rs.ext.Provider;
 
-/**
- *
- * @author Annika
- */
-@Provider
+
+
+ @Provider
 @PreMatching
 public class CorsResponseFilter implements ContainerResponseFilter {
   private final static Logger LOG = Logger.getLogger(CorsResponseFilter.class.getName());
