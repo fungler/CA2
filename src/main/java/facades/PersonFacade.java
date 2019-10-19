@@ -180,7 +180,7 @@ public class PersonFacade {
 
         try {
             TypedQuery<Person> query
-                    = em.createQuery("SELECT p FROM Person p JOIN p.infoEntity.address.cityInfo c WHERE c.zip = :zip", Person.class);
+                    = em.createQuery("SELECT p FROM Person p JOIN p.address.cityInfo c WHERE c.zip = :zip", Person.class);
             query.setParameter("zip", zip);
             List<Person> persons = query.getResultList();
             List<PersonDTO> res = new ArrayList<>();
