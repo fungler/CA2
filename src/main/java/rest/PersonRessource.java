@@ -41,6 +41,12 @@ public class PersonRessource {
     public Response getPersonsByHobby(@PathParam("hobby") String hobby) {
         return Response.ok().entity(GSON.toJson(FACADE.findByHobby(hobby))).build();
     }
+    
+    @GET
+    @Path("/zip/{zip}")
+    public Response getPersonsByZip(@PathParam("zip") int zip) {
+        return Response.ok().entity(GSON.toJson(FACADE.findByZip(zip))).build();
+    }
 
     
     @POST
